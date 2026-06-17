@@ -42,6 +42,20 @@
             .shadow-app {
                 box-shadow: 0 10px 25px -5px rgba(22, 93, 255, 0.15);
             }
+            /* ✨ NEW ANIMATIONS */
+            .animate-scroll {
+                animation: scroll 20s linear infinite;
+            }
+            .animate-scroll:hover {
+                animation-play-state: paused;
+            }
+            @keyframes scroll {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-100%); }
+            }
+            .star-rating span {
+                color: #FFC107;
+            }
         }
     </style>
 </head>
@@ -59,6 +73,13 @@
             </div>
             <h1 class="text-center text-[22px] font-bold leading-tight">CCS AI</h1>
             <p class="text-center text-white/90 text-sm mt-1">Official Ai Assistant & Announcement</p>
+
+            <!-- 👁️ VIEWS COUNTER - NEW -->
+            <div class="flex items-center justify-center gap-2 mt-4 text-white/80 text-sm">
+                <i class="fa fa-eye"></i>
+                <span id="viewCount">0</span>
+                <span class="text-[10px]">visitors</span>
+            </div>
         </header>
 
         <!-- ℹ️ WELCOME & DESCRIPTION -->
@@ -75,6 +96,81 @@
                         Please download only the official version to ensure security and proper functionality.
                     </p>
                 </div>
+            </div>
+        </section>
+
+        <!-- ⭐ RATING SUMMARY SECTION - NEW -->
+        <section class="px-6 mb-6">
+            <div class="bg-white rounded-2xl p-5 shadow-app mx-2">
+                <h3 class="text-md font-bold text-center text-dark mb-4 flex items-center justify-center gap-2">
+                    <i class="fa fa-star text-yellow-500"></i>
+                    Community Ratings
+                </h3>
+                
+                <div class="space-y-2 text-sm">
+                    <!-- 5 Stars -->
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 text-gray-600">5 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar5" class="h-full bg-green-500 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count5" class="w-8 text-right text-gray-700 font-medium">0</span>
+                    </div>
+                    <!-- 4 Stars -->
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 text-gray-600">4 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar4" class="h-full bg-green-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count4" class="w-8 text-right text-gray-700 font-medium">0</span>
+                    </div>
+                    <!-- 3 Stars -->
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 text-gray-600">3 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar3" class="h-full bg-yellow-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count3" class="w-8 text-right text-gray-700 font-medium">0</span>
+                    </div>
+                    <!-- 2 Stars -->
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 text-gray-600">2 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar2" class="h-full bg-orange-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count2" class="w-8 text-right text-gray-700 font-medium">0</span>
+                    </div>
+                    <!-- 1 Star -->
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 text-gray-600">1 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar1" class="h-full bg-red-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count1" class="w-8 text-right text-gray-700 font-medium">0</span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3 text-xs text-gray-500">
+                    Total Ratings: <span id="totalRatings" class="font-bold text-primary">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 💬 LIVE COMMENTS SCROLLER - NEW -->
+        <section class="px-6 mb-8">
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 shadow-app mx-2 border border-primary/10">
+                <h3 class="text-sm font-bold text-center text-primary mb-3 flex items-center justify-center gap-2">
+                    <i class="fa fa-comments"></i>
+                    What Students Say
+                </h3>
+                
+                <div class="relative h-[120px] overflow-hidden rounded-lg bg-white/60 backdrop-blur-sm">
+                    <div id="commentsContainer" class="absolute w-full animate-scroll">
+                        <!-- Comments will load here automatically -->
+                        <div class="p-3 text-center text-gray-400 text-sm">Waiting for feedback...</div>
+                    </div>
+                </div>
+                <p class="text-center text-[10px] text-gray-500 mt-2">✨ Scrolls automatically • Next you turn ✨</p>
             </div>
         </section>
 
@@ -135,6 +231,130 @@
         </footer>
 
     </div>
+
+    <!-- ⚙️ JAVASCRIPT FOR VIEWS, RATINGS, COMMENTS -->
+    <script>
+        // --------------------------
+        // 💾 LOCAL STORAGE DATABASE (Works perfectly with static GitHub Pages)
+        // --------------------------
+        let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
+            views: 0,
+            ratings: [0,0,0,0,0], // index 0 = 1star, index 4 = 5star
+            feedbacks: []
+        };
+
+        // --------------------------
+        // 👁️ VIEW COUNTER SYSTEM
+        // --------------------------
+        function updateViews() {
+            appData.views += 1;
+            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
+            saveData();
+        }
+
+        // --------------------------
+        // ⭐ RATING SUMMARY BARS
+        // --------------------------
+        function updateRatingsUI() {
+            const total = appData.ratings.reduce((a,b) => a+b, 0);
+            document.getElementById('totalRatings').textContent = total;
+            
+            for(let i=1; i<=5; i++) {
+                const count = appData.ratings[i-1];
+                const percent = total > 0 ? (count / total) * 100 : 0;
+                document.getElementById(`count${i}`).textContent = count;
+                document.getElementById(`bar${i}`).style.width = `${percent}%`;
+            }
+        }
+
+        // --------------------------
+        // 💬 SCROLLING COMMENTS SYSTEM
+        // --------------------------
+        function renderComments() {
+            const container = document.getElementById('commentsContainer');
+            container.innerHTML = '';
+
+            if(appData.feedbacks.length === 0) {
+                container.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm">Be the first to share your experience! ✨</div>`;
+                return;
+            }
+
+            // Duplicate list for infinite scroll effect
+            const allComments = [...appData.feedbacks, ...appData.feedbacks];
+
+            allComments.forEach(fb => {
+                const stars = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
+                const commentEl = document.createElement('div');
+                commentEl.className = 'p-3 mb-2 border-b border-gray-100 last:border-0';
+                commentEl.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-semibold text-sm text-primary">${escapeHtml(fb.name)}</span>
+                        <span class="star-rating text-xs">${stars}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">${escapeHtml(fb.comment || "Great app! Very helpful.")}</p>
+                `;
+                container.appendChild(commentEl);
+            });
+        }
+
+        // --------------------------
+        // 📥 RECEIVE DATA FROM APP RATE BUTTON
+        // --------------------------
+        function checkForNewFeedback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('rating') && urlParams.has('name')) {
+                const newFeedback = {
+                    name: urlParams.get('name'),
+                    rating: parseInt(urlParams.get('rating')),
+                    comment: urlParams.get('comment') || "",
+                    date: new Date().toISOString()
+                };
+
+                // Add to data
+                appData.ratings[newFeedback.rating - 1] += 1;
+                appData.feedbacks.unshift(newFeedback); // Newest first
+                
+                // Keep only last 20 comments
+                if(appData.feedbacks.length > 20) appData.feedbacks.pop();
+
+                // Clear URL params
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                saveData();
+                updateUI();
+            }
+        }
+
+        // --------------------------
+        // 🛠️ UTILITIES
+        // --------------------------
+        function saveData() {
+            localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe.toString()
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        function updateUI() {
+            updateViews();
+            updateRatingsUI();
+            renderComments();
+        }
+
+        // --------------------------
+        // 🚀 INITIALIZE
+        // --------------------------
+        window.onload = () => {
+            checkForNewFeedback();
+            updateUI();
+        };
+    </script>
 
 </body>
 </html>

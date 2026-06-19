@@ -341,5 +341,48 @@
         };
     </script>
 
+    <!-- Popup Modal -->
+<div id="noApkModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
+    <h2 class="text-lg font-bold text-dark mb-2">File Not Found</h2>
+    <p class="text-sm text-gray-600 mb-4">
+      The CCS-AI-App.apk file is missing. Please make sure the APK is placed beside the index.html.
+    </p>
+    <button onclick="closeModal()" 
+            class="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90">
+      Understand
+    </button>
+  </div>
+</div>
+
+<script>
+  const downloadBtn = document.querySelector('a[href="./CCS-AI-App.apk"]');
+
+  downloadBtn.addEventListener('click', function(e) {
+    fetch('./CCS-AI-App.apk', { method: 'HEAD' })
+      .then(res => {
+        if (!res.ok) {
+          e.preventDefault(); // stop default download
+          showModal();
+        }
+      })
+      .catch(() => {
+        e.preventDefault();
+        showModal();
+      });
+  });
+
+  function showModal() {
+    document.getElementById('noApkModal').classList.remove('hidden');
+    document.getElementById('noApkModal').classList.add('flex');
+  }
+
+  function closeModal() {
+    document.getElementById('noApkModal').classList.add('hidden');
+    document.getElementById('noApkModal').classList.remove('flex');
+  }
+</script>
+
+    
 </body>
 </html>

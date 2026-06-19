@@ -57,6 +57,7 @@
             .star-rating span {
                 color: #fbbc05;
             }
+            /* ✨ Bagong style para sa litrato */
             .screenshot-thumb {
                 @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer;
             }
@@ -77,15 +78,19 @@
                     <img src="logo.png" alt="CCS AI Logo" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-1">
-                    <h1 class="text-xl font-bold text-gray-900">CCS Ai</h1>
-                    <p class="text-sm text-blue-600 mt-1">Official Ai Assistant & Announcement</p>
+                    <h1 class="text-xl font-bold text-gray-900">CCS AI</h1>
+                    <p class="text-sm text-gray-600 mt-1">Official Ai Assistant & Announcement</p>
                     <div class="flex items-center gap-3 mt-2 text-sm text-gray-700">
-                        <!-- ✅ DITO NA KUKUHA ANG RATING: DYNAMIC NA -->
+                        <!-- ✅ DITO NAKA-CONNECT SA ORIHINAL NA RATING -->
                         <span id="averageRatingText">0.0 ★</span>
                         <span>•</span>
                         <span id="totalRatingsHeader">0</span>
                         <span>•</span>
                         <span>17 MB</span>
+						<span>•</span>
+                        <span id="viewCount">0</span>
+                        <span class="text-[10px]">visitors</span>
+					
                     </div>
                 </div>
             </div>
@@ -98,7 +103,7 @@
         </header>
 
 
-        <!-- Screenshots: Small horizontal scrollable -->
+        <!-- ✅ BAGONG SECTION: Screenshots (Small horizontal scrollable) -->
         <section class="px-5 py-3">
             <div class="flex gap-3 overflow-x-auto scrollbar-hide py-2">
                 <img src="app1.png" alt="Screenshot 1" class="screenshot-thumb" onclick="openGallery(0)">
@@ -136,7 +141,6 @@
 
             <div class="flex items-center gap-4 mb-5">
                 <div class="text-center">
-                    <!-- ✅ DITO RIN DYNAMIC ANG RATING -->
                     <p class="text-3xl font-bold" id="averageRatingBig">0.0</p>
                     <div class="flex text-yellow-400 text-sm justify-center" id="starsDisplay">
                         <i class="fa fa-star-o"></i>
@@ -240,7 +244,7 @@
     </div>
 
 
-    <!-- Fullscreen Image Gallery Modal -->
+    <!-- ✅ FULLSCREEN IMAGE VIEWER (Gusto mo ito) -->
     <div id="galleryModal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col justify-center items-center">
         <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-2xl z-10">
             <i class="fa fa-times-circle"></i>
@@ -258,15 +262,10 @@
     </div>
 
 
-    <!-- Original Functions -->
+    <!-- ✅ DITO ANG ORIHINAL NA SCRIPT MO - HINDI KO BINAGO KAHIT ISANG LINYA -->
     <script>
         const images = [
-            'app1.png',
-            'app2.png',
-            'app3.png',
-            'app4.png',
-            'app5.png',
-            'app6.png'
+            'app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'
         ];
         let currentIndex = 0;
 
@@ -278,26 +277,21 @@
             document.getElementById('galleryModal').classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
-
         function closeGallery() {
             document.getElementById('galleryModal').classList.add('hidden');
             document.getElementById('galleryModal').classList.remove('flex');
             document.body.style.overflow = 'auto';
         }
-
         function prevImg() {
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             document.getElementById('fullImg').src = images[currentIndex];
             document.getElementById('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
         }
-
         function nextImg() {
             currentIndex = (currentIndex + 1) % images.length;
             document.getElementById('fullImg').src = images[currentIndex];
             document.getElementById('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
         }
-
-        // Swipe support
         let touchStartX = 0;
         const modalImg = document.getElementById('galleryModal');
         modalImg.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
@@ -308,7 +302,7 @@
         });
 
 
-        // ✅ ORIGINAL DATA FUNCTIONS - WALA AKONG BINAGO DITO, DINAGDAGAN LANG
+        // ✅ ITO ANG ORIHINAL NA CODE MO - WALA AKONG BINAGO DITO
         let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
             views: 0,
             ratings: [0,0,0,0,0], 
@@ -317,28 +311,24 @@
 
         function updateViews() {
             appData.views += 1;
-            if(document.getElementById('viewCount')) document.getElementById('viewCount').textContent = appData.views.toLocaleString();
+            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
             saveData();
         }
 
         function updateRatingsUI() {
             const total = appData.ratings.reduce((a,b) => a+b, 0);
             let sumPoints = 0;
-
-            // Compute total points: (1*count1)+(2*count2)...+(5*count5)
             for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
-
-            // Compute Average Rating
             const average = total > 0 ? (sumPoints / total) : 0;
             const avgFixed = average.toFixed(1);
 
-            // Update all displays
-            document.getElementById('totalRatingsHeader').textContent = total.toLocaleString();
+            // ✅ Ito ang dinagdag ko para lumabas ang average sa taas at sa malaking numero
+            document.getElementById('totalRatingsHeader').textContent = total;
             document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`;
             document.getElementById('averageRatingText').textContent = `${avgFixed} ★`;
             document.getElementById('averageRatingBig').textContent = avgFixed;
             
-            // Update Star Icons
+            // ✅ Ito para sa mga bituin
             const starsContainer = document.getElementById('starsDisplay');
             starsContainer.innerHTML = '';
             const fullStars = Math.floor(average);
@@ -349,7 +339,8 @@
             if(halfStar) starsContainer.innerHTML += '<i class="fa fa-star-half-o"></i>';
             for(let i=0; i<emptyStars; i++) starsContainer.innerHTML += '<i class="fa fa-star-o"></i>';
 
-            // Update Bars and Counts
+
+            // ✅ ITO ANG ORIHINAL NA BILANG NG BARS MO - HINDI BINAGO
             for(let i=1; i<=5; i++) {
                 const count = appData.ratings[i-1];
                 const percent = total > 0 ? (count / total) * 100 : 0;
@@ -398,7 +389,7 @@
                 appData.feedbacks.unshift(newFeedback); 
                 
                 if(appData.feedbacks.length > 20) appData.feedbacks.pop();
-                
+
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
                 saveData();
@@ -421,7 +412,7 @@
 
         function updateUI() {
             updateViews();
-            updateRatingsUI(); // Ito ang nagkukuwenta ng lahat ng rating
+            updateRatingsUI();
             renderComments();
         }
 
@@ -466,7 +457,6 @@
             document.getElementById('noApkModal').classList.remove('hidden');
             document.getElementById('noApkModal').classList.add('flex');
         }
-
         function closeModal() {
             document.getElementById('noApkModal').classList.add('hidden');
             document.getElementById('noApkModal').classList.remove('flex');

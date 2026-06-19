@@ -6,6 +6,7 @@
     <title>CCS AI - Official App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -28,41 +29,17 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
-            .bg-gradient-app {
-                background: linear-gradient(135deg, #165DFF 0%, #36CFC9 100%);
-            }
-            .shadow-app {
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            }
-            .animate-scroll {
-                animation: scroll 20s linear infinite;
-            }
-            .animate-scroll:hover {
-                animation-play-state: paused;
-            }
-            @keyframes scroll {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-100%); }
-            }
-            .star-rating span {
-                color: #fbbc05;
-            }
-            .screenshot-thumb {
-                @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer;
-            }
-            .modal-img {
-                @apply w-full h-auto max-h-[85vh] object-contain;
-            }
+            .content-auto { content-visibility: auto; }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+            .bg-gradient-app { background: linear-gradient(135deg, #165DFF 0%, #36CFC9 100%); }
+            .shadow-app { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+            .animate-scroll { animation: scroll 20s linear infinite; }
+            .animate-scroll:hover { animation-play-state: paused; }
+            @keyframes scroll { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
+            .star-rating span { color: #fbbc05; }
+            .screenshot-thumb { @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer; }
+            .modal-img { @apply w-full h-auto max-h-[85vh] object-contain; }
         }
     </style>
 </head>
@@ -85,14 +62,10 @@
                         <span id="totalRatingsHeader">0</span>
                         <span>•</span>
                         <span>17 MB</span>
-						<span>•</span>
-                        <span id="viewCount">0</span>
-                        <span>visitors</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Install Button -->
             <a href="./CCS-AI-App.apk" download="CCS-AI-App.apk" 
                class="block w-full bg-playBlue hover:bg-playBlue/90 text-white font-semibold py-3 rounded-lg text-center transition-all mt-5">
                 Install
@@ -100,7 +73,7 @@
         </header>
 
 
-        <!-- Screenshots: Small horizontal scrollable -->
+        <!-- Screenshots -->
         <section class="px-5 py-3">
             <div class="flex gap-3 overflow-x-auto scrollbar-hide py-2">
                 <img src="app1.png" alt="Screenshot 1" class="screenshot-thumb" onclick="openGallery(0)">
@@ -113,7 +86,7 @@
         </section>
 
 
-        <!-- About this app -->
+        <!-- About App -->
         <section class="px-5 py-4 border-t border-gray-200">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-lg font-semibold text-gray-900">About this app</h2>
@@ -132,7 +105,7 @@
         </section>
 
 
-        <!-- Ratings & Reviews -->
+        <!-- ✅ RATINGS & REVIEWS SECTION -->
         <section class="px-5 py-4 border-t border-gray-200">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Ratings & reviews</h2>
 
@@ -140,11 +113,7 @@
                 <div class="text-center">
                     <p class="text-3xl font-bold" id="averageRatingBig">0.0</p>
                     <div class="flex text-yellow-400 text-sm justify-center" id="starsDisplay">
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                     </div>
                     <p class="text-xs text-gray-500 mt-1" id="totalReviewsText">0 reviews</p>
                 </div>
@@ -189,7 +158,7 @@
             </div>
 
 
-            <!-- Student Feedback -->
+            <!-- Comments Scroll -->
             <div class="bg-playGray rounded-xl p-4">
                 <h3 class="text-md font-semibold mb-3 flex items-center gap-2">
                     <i class="fa fa-comments text-playBlue"></i>
@@ -204,7 +173,7 @@
         </section>
 
 
-        <!-- Developer Info -->
+        <!-- Developer -->
         <section class="px-5 py-4 border-t border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 mb-3">Developer</h3>
             <a href="https://www.facebook.com/share/1HEn4ocMjm/" target="_blank" rel="noopener noreferrer"
@@ -241,7 +210,7 @@
     </div>
 
 
-    <!-- Fullscreen Image Gallery Modal -->
+    <!-- Fullscreen Image Modal -->
     <div id="galleryModal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col justify-center items-center">
         <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-2xl z-10">
             <i class="fa fa-times-circle"></i>
@@ -259,11 +228,9 @@
     </div>
 
 
-    <!-- ✅ SCRIPT: TAMANG PAGBASA NG LINK GALING SA APP -->
+    <!-- ✅ JSONBIN SCRIPT - PURONG RATINGS & COMMENTS LANG -->
     <script>
-        const images = [
-            'app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'
-        ];
+        const images = ['app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'];
         let currentIndex = 0;
 
         function openGallery(index) {
@@ -299,154 +266,177 @@
         });
 
 
-        // ✅ GAMITIN NATIN ANG JSONBIN PARA IISA ANG DATA SA LAHAT NG DEVICE
-        const DATA_URL = "https://api.jsonbin.io/v3/b/67628452e41b4d385e9a7a8b"; 
-        const API_KEY = "$2a$10$eW2sJZ0vRw0uX7Qf9eR6/.tU7yLg5bH0aP9eR6T8yU9I0O1P2Q3R4";
+        // ✅ ILAGAY DITO ANG IYONG JSONBIN DETAILS
+        const BIN_ID = "$2a$10$zx8U/D1ur8swhSQByxi3Ie47cEw8eG5HTm9Ii83/lowe.VSwI8c22";
+        const API_KEY = "$2a$10$U2XaFBpYOppPzPjRGjsKIOAGVEdMu/Lg0G.yQM1HfPhkbQSvZEbmO";
+        const BASE_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
-        let appData = { views: 0, ratings: [0,0,0,0,0], feedbacks: [] };
 
-        // Kunin ang data mula sa server
-        async function getData() {
+        // ✅ I-SAVE ANG BAGONG RATING GALING SA APP
+        async function saveFeedback(name, rating, comment) {
             try {
-                const res = await fetch(DATA_URL, { headers: { "X-Master-Key": API_KEY } });
-                const json = await res.json();
-                if (json.record) appData = json.record;
-            } catch (e) {
-                // Kung walang internet, gamitin ang luma
-                const local = localStorage.getItem('ccsAI_Data');
-                if (local) appData = JSON.parse(local);
+                // 1. Kunin ang kasalukuyang data
+                const resGet = await fetch(BASE_URL, {
+                    headers: { "X-Master-Key": API_KEY }
+                });
+                const json = await resGet.json();
+                let data = json.record;
+
+                // 2. Dagdagan ang bilang ng bituin
+                data.ratings[rating - 1] += 1;
+
+                // 3. Idagdag ang komento sa taas
+                data.feedbacks.unshift({
+                    name: name,
+                    rating: rating,
+                    comment: comment || "",
+                    date: new Date().toISOString()
+                });
+
+                // 4. Tanggalin ang sobrang luma (panatilihin lang 20 pinakabago)
+                if (data.feedbacks.length > 20) data.feedbacks.pop();
+
+                // 5. I-save ulit sa server
+                await fetch(BASE_URL, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": API_KEY
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // 6. I-refresh ang display
+                updateDisplay(data);
+
+            } catch (err) {
+                console.error("Error:", err);
             }
         }
 
-        // I-save sa server
-        async function saveData() {
-            localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
+
+        // ✅ KUNIN ANG DATA AT IPAKITA SA SCREEN
+        async function loadData() {
             try {
-                await fetch(DATA_URL, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json", "X-Master-Key": API_KEY },
-                    body: JSON.stringify(appData)
+                const res = await fetch(BASE_URL, {
+                    headers: { "X-Master-Key": API_KEY, "Cache-Control": "no-cache" }
                 });
-            } catch (e) { /* error lang, wag intindihin */ }
+                const json = await res.json();
+                updateDisplay(json.record);
+            } catch (err) {
+                console.error("Load error:", err);
+            }
         }
 
 
-        // ✅ ORIHINAL NA LOGIC MO, INAYOS LANG ANG PAGBASA NG LINK
-        function updateViews() {
-            appData.views += 1;
-            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
-            saveData();
-        }
+        // ✅ ITO ANG NAGPAPALIT NG NUMERO AT KOMENTO
+        function updateDisplay(data) {
+            const total = data.ratings.reduce((a, b) => a + b, 0);
+            if (total === 0) return;
 
-        function updateRatingsUI() {
-            const total = appData.ratings.reduce((a,b) => a+b, 0);
+            // --- KOMpyutin ang Average ---
+            let sumPoints = 0;
+            data.ratings.forEach((count, idx) => sumPoints += (idx + 1) * count);
+            const average = sumPoints / total;
+            const avgFixed = average.toFixed(1);
+
+            // --- Update Header Numbers ---
             document.getElementById('totalRatingsHeader').textContent = total;
             document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`;
-            
-            for(let i=1; i<=5; i++) {
-                const count = appData.ratings[i-1];
-                const percent = total > 0 ? (count / total) * 100 : 0;
-                document.getElementById(`count${i}`).textContent = count;
-                document.getElementById(`bar${i}`).style.width = `${percent}%`;
-            }
-
-            // Compute Average
-            let sumPoints = 0;
-            for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
-            const average = total > 0 ? (sumPoints / total) : 0;
-            const avgFixed = average.toFixed(1);
-            
             document.getElementById('averageRatingText').textContent = `${avgFixed} ★`;
             document.getElementById('averageRatingBig').textContent = avgFixed;
-            
+
+            // --- Update Bars & Counts ---
+            for (let i = 0; i < 5; i++) {
+                const percent = (data.ratings[i] / total) * 100;
+                document.getElementById(`count${i + 1}`).textContent = data.ratings[i];
+                document.getElementById(`bar${i + 1}`).style.width = `${percent}%`;
+            }
+
+            // --- Update Star Icons ---
             const starsContainer = document.getElementById('starsDisplay');
             starsContainer.innerHTML = '';
             const fullStars = Math.floor(average);
-            const halfStar = (average % 1) >= 0.25 && (average % 1) < 0.75;
+            const halfStar = (average % 1) >= 0.25;
             const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-            
-            for(let i=0; i<fullStars; i++) starsContainer.innerHTML += '<i class="fa fa-star"></i>';
-            if(halfStar) starsContainer.innerHTML += '<i class="fa fa-star-half-o"></i>';
-            for(let i=0; i<emptyStars; i++) starsContainer.innerHTML += '<i class="fa fa-star-o"></i>';
-        }
 
-        function renderComments() {
+            for (let i = 0; i < fullStars; i++) starsContainer.innerHTML += '<i class="fa fa-star"></i>';
+            if (halfStar) starsContainer.innerHTML += '<i class="fa fa-star-half-o"></i>';
+            for (let i = 0; i < emptyStars; i++) starsContainer.innerHTML += '<i class="fa fa-star-o"></i>';
+
+
+            // --- Update Comments Scroll ---
             const container = document.getElementById('commentsContainer');
             container.innerHTML = '';
 
-            if(appData.feedbacks.length === 0) {
-                container.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm">Be the first to share your experience! ✨</div>`;
-                return;
-            }
-
-            const allComments = [...appData.feedbacks, ...appData.feedbacks];
-
-            allComments.forEach(fb => {
+            data.feedbacks.forEach(fb => {
                 const stars = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
-                const commentEl = document.createElement('div');
-                commentEl.className = 'p-3 mb-2 border-b border-gray-100 last:border-0';
-                commentEl.innerHTML = `
+                const div = document.createElement('div');
+                div.className = 'p-3 mb-2 border-b border-gray-100 last:border-0';
+                div.innerHTML = `
                     <div class="flex items-center justify-between mb-1">
                         <span class="font-semibold text-sm text-primary">${escapeHtml(fb.name)}</span>
                         <span class="star-rating text-xs">${stars}</span>
                     </div>
-                    <p class="text-xs text-gray-600 italic">${escapeHtml(fb.comment || "Great app! Very helpful.")}</p>
+                    <p class="text-xs text-gray-600 italic">${escapeHtml(fb.comment || "No comment")}</p>
                 `;
-                container.appendChild(commentEl);
+                container.appendChild(div);
+            });
+
+            // Ulitin para tuloy-tuloy ang scroll
+            data.feedbacks.forEach(fb => {
+                const stars = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
+                const div = document.createElement('div');
+                div.className = 'p-3 mb-2 border-b border-gray-100 last:border-0';
+                div.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-semibold text-sm text-primary">${escapeHtml(fb.name)}</span>
+                        <span class="star-rating text-xs">${stars}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">${escapeHtml(fb.comment || "No comment")}</p>
+                `;
+                container.appendChild(div);
             });
         }
 
 
-        // ✅ ITO ANG TAMA: BINABASA ANG LINK GALING SA APP MO
-        function checkForNewFeedback() {
+        // ✅ BASAHIN ANG LINK GALING SA APP MO (`?name=...&rating=...`)
+        function checkNewFeedback() {
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // KUNG MAY DADALING DATA GALING SA APP
-            if(urlParams.has('rating') && urlParams.has('name')) {
-                const newFeedback = {
-                    name: urlParams.get('name'),
-                    rating: parseInt(urlParams.get('rating')),
-                    comment: urlParams.get('comment') || "",
-                    date: new Date().toISOString()
-                };
 
-                // ✅ IDADAGDAG SA BILANG
-                appData.ratings[newFeedback.rating - 1] += 1;
-                appData.feedbacks.unshift(newFeedback); 
-                
-                if(appData.feedbacks.length > 20) appData.feedbacks.pop();
+            if (urlParams.has('rating') && urlParams.has('name')) {
+                const name = urlParams.get('name');
+                const rating = parseInt(urlParams.get('rating'));
+                const comment = urlParams.get('comment') || "";
 
-                // ✅ DITO LANG TANGGALIN ANG LINK PAGKABASA NA!
+                // I-save sa JSONBin
+                saveFeedback(name, rating, comment);
+
+                // Tanggalin ang link parameters para malinis tignan
                 window.history.replaceState({}, document.title, window.location.pathname);
-                
-                saveData(); // I-save agad sa server
             }
         }
 
+        // Iwas XSS
         function escapeHtml(unsafe) {
             return unsafe.toString()
-                 .replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
-        function updateUI() {
-            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
-            updateRatingsUI();
-            renderComments();
-        }
 
-        window.onload = async () => {
-            await getData(); // Kunin muna ang data mula sa server
-            checkForNewFeedback(); // Basahin ang link (kung may galing sa app)
-            updateViews(); // Dagdagan ang bisita
-            updateUI(); // Ipakita lahat
+        // ✅ SIMULA
+        window.onload = () => {
+            checkNewFeedback(); // Basa muna kung may nagpadala galing app
+            loadData();         // Ipakita lahat ng nasa database
         };
+
     </script>
 
-    <!-- Popup Modal -->
+    <!-- APK Not Found Modal -->
     <div id="noApkModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
         <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
             <h2 class="text-lg font-bold text-dark mb-2">File Not Found</h2>
@@ -462,29 +452,13 @@
 
     <script>
         const downloadBtn = document.querySelector('a[href="./CCS-AI-App.apk"]');
-
         downloadBtn.addEventListener('click', function(e) {
             fetch('./CCS-AI-App.apk', { method: 'HEAD' })
-                .then(res => {
-                    if (!res.ok) {
-                        e.preventDefault();
-                        showModal();
-                    }
-                })
-                .catch(() => {
-                    e.preventDefault();
-                    showModal();
-                });
+                .then(res => { if (!res.ok) { e.preventDefault(); showModal(); } })
+                .catch(() => { e.preventDefault(); showModal(); });
         });
-
-        function showModal() {
-            document.getElementById('noApkModal').classList.remove('hidden');
-            document.getElementById('noApkModal').classList.add('flex');
-        }
-        function closeModal() {
-            document.getElementById('noApkModal').classList.add('hidden');
-            document.getElementById('noApkModal').classList.remove('flex');
-        }
+        function showModal() { document.getElementById('noApkModal').classList.remove('hidden'); document.getElementById('noApkModal').classList.add('flex'); }
+        function closeModal() { document.getElementById('noApkModal').classList.add('hidden'); document.getElementById('noApkModal').classList.remove('flex'); }
     </script>
 
 </body>

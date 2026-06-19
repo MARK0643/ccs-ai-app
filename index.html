@@ -7,12 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
-        // 🎨 COLORS MATCHING YOUR APP
+        
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF', // Main Blue color
+                        primary: '#165DFF',
                         secondary: '#36CFC9',
                         dark: '#1D2129',
                         light: '#F2F3F5',
@@ -61,10 +61,10 @@
 </head>
 <body class="bg-gray-50 font-sans text-dark min-h-screen">
 
-    <!-- 📱 MAIN CONTAINER - Mobile View -->
+   
     <div class="max-w-md mx-auto bg-white min-h-screen relative overflow-hidden">
 
-        <!-- 🔝 HEADER / TOP BANNER -->
+        
         <header class="bg-gradient-app text-white px-6 pt-10 pb-16 rounded-b-[30px]">
             <div class="flex items-center justify-center mb-4">
                 <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
@@ -74,7 +74,7 @@
             <h1 class="text-center text-[22px] font-bold leading-tight">CCS AI</h1>
             <p class="text-center text-white/90 text-sm mt-1">Official Ai Assistant & Announcement</p>
 
-            <!-- 👁️ VIEWS COUNTER - NEW -->
+            
             <div class="flex items-center justify-center gap-2 mt-4 text-white/80 text-sm">
                 <i class="fa fa-eye"></i>
                 <span id="viewCount">0</span>
@@ -82,7 +82,7 @@
             </div>
         </header>
 
-        <!-- ℹ️ WELCOME & DESCRIPTION -->
+        
         <section class="px-6 -mt-8 mb-8">
             <div class="bg-white rounded-2xl p-6 shadow-app mx-2">
                 <h2 class="text-lg font-bold text-center text-dark mb-3">👋 Welcome!</h2>
@@ -99,7 +99,6 @@
             </div>
         </section>
 
-        <!-- ⭐ RATING SUMMARY SECTION - NEW -->
         <section class="px-6 mb-6">
             <div class="bg-white rounded-2xl p-5 shadow-app mx-2">
                 <h3 class="text-md font-bold text-center text-dark mb-4 flex items-center justify-center gap-2">
@@ -108,7 +107,7 @@
                 </h3>
                 
                 <div class="space-y-2 text-sm">
-                    <!-- 5 Stars -->
+                 
                     <div class="flex items-center gap-2">
                         <span class="w-6 text-gray-600">5 ★</span>
                         <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -116,7 +115,7 @@
                         </div>
                         <span id="count5" class="w-8 text-right text-gray-700 font-medium">0</span>
                     </div>
-                    <!-- 4 Stars -->
+                   
                     <div class="flex items-center gap-2">
                         <span class="w-6 text-gray-600">4 ★</span>
                         <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -124,7 +123,7 @@
                         </div>
                         <span id="count4" class="w-8 text-right text-gray-700 font-medium">0</span>
                     </div>
-                    <!-- 3 Stars -->
+                    
                     <div class="flex items-center gap-2">
                         <span class="w-6 text-gray-600">3 ★</span>
                         <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -132,7 +131,7 @@
                         </div>
                         <span id="count3" class="w-8 text-right text-gray-700 font-medium">0</span>
                     </div>
-                    <!-- 2 Stars -->
+                 
                     <div class="flex items-center gap-2">
                         <span class="w-6 text-gray-600">2 ★</span>
                         <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -140,7 +139,7 @@
                         </div>
                         <span id="count2" class="w-8 text-right text-gray-700 font-medium">0</span>
                     </div>
-                    <!-- 1 Star -->
+
                     <div class="flex items-center gap-2">
                         <span class="w-6 text-gray-600">1 ★</span>
                         <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -156,7 +155,7 @@
             </div>
         </section>
 
-        <!-- 💬 LIVE COMMENTS SCROLLER - NEW -->
+       
         <section class="px-6 mb-8">
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 shadow-app mx-2 border border-primary/10">
                 <h3 class="text-sm font-bold text-center text-primary mb-3 flex items-center justify-center gap-2">
@@ -174,12 +173,12 @@
             </div>
         </section>
 
-        <!-- ⬇️ DOWNLOAD SECTION -->
+       
         <section class="px-6 mb-10">
             <div class="p-5 border border-dashed border-primary/30 rounded-xl bg-primary/5">
                 <h3 class="text-md font-semibold text-center text-dark mb-4">Download the App</h3>
                 
-                <!-- ✅ DOWNLOAD BUTTON -->
+                
                 <a href="./CCS-AI-App.apk" download="CCS-AI-App.apk" 
                    class="block w-full bg-gradient-app hover:opacity-90 active:scale-[0.98] text-white font-bold py-3.5 px-4 rounded-xl text-center transition-all duration-200 shadow-lg mb-4">
                     <i class="fa fa-android mr-2 text-lg"></i> 
@@ -187,12 +186,12 @@
                 </a>
 
                 <p class="text-[11px] text-center text-gray-500">
-                    File Size: ~12MB • Version 1.0.0<br>
+                    File Size: ~ 17MB • Version 1.0<br>
                     <span class="text-green-600 font-medium">✓ Safe & Secure</span>
                 </p>
             </div>
 
-            <!-- 🙏 THANK YOU MESSAGE -->
+            
             <div class="mt-6 p-4 bg-green-50 border border-green-100 rounded-xl">
                 <h4 class="text-sm font-bold text-green-700 text-center mb-1">🎉 Thank You for Downloading!</h4>
                 <p class="text-xs text-green-600 text-center">
@@ -202,12 +201,12 @@
             </div>
         </section>
 
-        <!-- 👨‍💻 DEVELOPERS SECTION -->
+        
         <section class="px-6 mb-12">
             <h3 class="text-md font-bold text-center text-dark mb-4">Meet the Developers</h3>
             
             <div class="space-y-3">
-                <!-- DEVELOPER 1 -->
+               
                 <a href="https://www.facebook.com/share/1HEn4ocMjm/" target="_blank" rel="noopener noreferrer"
                    class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all border border-gray-100">
                     <div class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white">
@@ -222,7 +221,7 @@
             </div>
         </section>
 
-        <!-- 🔚 FOOTER -->
+       
         <footer class="bg-light py-5 px-6 rounded-t-3xl">
             <p class="text-center text-[10px] text-gray-500">
                 © 2026 College of Computing Studies. All rights reserved.<br>
@@ -232,29 +231,23 @@
 
     </div>
 
-    <!-- ⚙️ JAVASCRIPT FOR VIEWS, RATINGS, COMMENTS -->
+    
     <script>
-        // --------------------------
-        // 💾 LOCAL STORAGE DATABASE (Works perfectly with static GitHub Pages)
-        // --------------------------
+
         let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
             views: 0,
-            ratings: [0,0,0,0,0], // index 0 = 1star, index 4 = 5star
+            ratings: [0,0,0,0,0], 
             feedbacks: []
         };
 
-        // --------------------------
-        // 👁️ VIEW COUNTER SYSTEM
-        // --------------------------
+
         function updateViews() {
             appData.views += 1;
             document.getElementById('viewCount').textContent = appData.views.toLocaleString();
             saveData();
         }
 
-        // --------------------------
-        // ⭐ RATING SUMMARY BARS
-        // --------------------------
+ 
         function updateRatingsUI() {
             const total = appData.ratings.reduce((a,b) => a+b, 0);
             document.getElementById('totalRatings').textContent = total;
@@ -267,9 +260,7 @@
             }
         }
 
-        // --------------------------
-        // 💬 SCROLLING COMMENTS SYSTEM
-        // --------------------------
+
         function renderComments() {
             const container = document.getElementById('commentsContainer');
             container.innerHTML = '';
@@ -279,7 +270,7 @@
                 return;
             }
 
-            // Duplicate list for infinite scroll effect
+ 
             const allComments = [...appData.feedbacks, ...appData.feedbacks];
 
             allComments.forEach(fb => {
@@ -297,9 +288,7 @@
             });
         }
 
-        // --------------------------
-        // 📥 RECEIVE DATA FROM APP RATE BUTTON
-        // --------------------------
+
         function checkForNewFeedback() {
             const urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('rating') && urlParams.has('name')) {
@@ -310,14 +299,14 @@
                     date: new Date().toISOString()
                 };
 
-                // Add to data
+       
                 appData.ratings[newFeedback.rating - 1] += 1;
-                appData.feedbacks.unshift(newFeedback); // Newest first
+                appData.feedbacks.unshift(newFeedback); 
                 
-                // Keep only last 20 comments
+                
                 if(appData.feedbacks.length > 20) appData.feedbacks.pop();
 
-                // Clear URL params
+                
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
                 saveData();
@@ -325,9 +314,7 @@
             }
         }
 
-        // --------------------------
-        // 🛠️ UTILITIES
-        // --------------------------
+
         function saveData() {
             localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
         }
@@ -347,9 +334,7 @@
             renderComments();
         }
 
-        // --------------------------
-        // 🚀 INITIALIZE
-        // --------------------------
+
         window.onload = () => {
             checkForNewFeedback();
             updateUI();

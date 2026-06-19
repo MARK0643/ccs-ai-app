@@ -6,9 +6,6 @@
     <title>CCS AI - Official App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- ✅ FIREBASE: Ito ang magpapa-sync ng data sa LAHAT ng device -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -91,7 +88,6 @@
 						<span>•</span>
                         <span id="viewCount">0</span>
                         <span>visitors</span>
-					
                     </div>
                 </div>
             </div>
@@ -104,7 +100,7 @@
         </header>
 
 
-        <!-- ✅ BAGONG SECTION: Screenshots (Small horizontal scrollable) -->
+        <!-- Screenshots: Small horizontal scrollable -->
         <section class="px-5 py-3">
             <div class="flex gap-3 overflow-x-auto scrollbar-hide py-2">
                 <img src="app1.png" alt="Screenshot 1" class="screenshot-thumb" onclick="openGallery(0)">
@@ -245,7 +241,7 @@
     </div>
 
 
-    <!-- ✅ FULLSCREEN IMAGE VIEWER -->
+    <!-- Fullscreen Image Gallery Modal -->
     <div id="galleryModal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col justify-center items-center">
         <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-2xl z-10">
             <i class="fa fa-times-circle"></i>
@@ -263,25 +259,8 @@
     </div>
 
 
-    <!-- ✅ BAGONG SCRIPT: GUMAGAMIT NG ONLINE DATABASE PARA MAKITA NG LAHAT -->
+    <!-- ✅ SCRIPT: TAMANG PAGBASA NG LINK GALING SA APP -->
     <script>
-        // ✅ KONFIGURASYON NG ONLINE DATABASE (Firebase)
-        const firebaseConfig = {
-            apiKey: "AIzaSyC8g5Gz0yH7Xk8s9rL2pQaZxXcVbNvMkLqPwE",
-            authDomain: "ccs-ai-app.firebaseapp.com",
-            databaseURL: "https://ccs-ai-app-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "ccs-ai-app",
-            storageBucket: "ccs-ai-app.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abc123def456ghi789jkl0"
-        };
-
-        // Simulan ang Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        const dataRef = db.ref('ccsai_data');
-
-
         const images = [
             'app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'
         ];
@@ -320,23 +299,42 @@
         });
 
 
-        // ✅ GAMITIN NA ANG ONLINE DATA SA HALIP NG LOCAL STORAGE
+        // ✅ GAMITIN NATIN ANG JSONBIN PARA IISA ANG DATA SA LAHAT NG DEVICE
+        const DATA_URL = "https://api.jsonbin.io/v3/b/67628452e41b4d385e9a7a8b"; 
+        const API_KEY = "$2a$10$eW2sJZ0vRw0uX7Qf9eR6/.tU7yLg5bH0aP9eR6T8yU9I0O1P2Q3R4";
+
         let appData = { views: 0, ratings: [0,0,0,0,0], feedbacks: [] };
 
-        // Kunin ang data mula sa internet kapag nagbukas
-        dataRef.on('value', snapshot => {
-            const onlineData = snapshot.val();
-            if (onlineData) {
-                appData = onlineData;
-            } else {
-                // Kung wala pa, gawa ng bago
-                saveData();
+        // Kunin ang data mula sa server
+        async function getData() {
+            try {
+                const res = await fetch(DATA_URL, { headers: { "X-Master-Key": API_KEY } });
+                const json = await res.json();
+                if (json.record) appData = json.record;
+            } catch (e) {
+                // Kung walang internet, gamitin ang luma
+                const local = localStorage.getItem('ccsAI_Data');
+                if (local) appData = JSON.parse(local);
             }
-            updateUI(); // I-update ang screen kapag may nagbago
-        });
+        }
 
+        // I-save sa server
+        async function saveData() {
+            localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
+            try {
+                await fetch(DATA_URL, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json", "X-Master-Key": API_KEY },
+                    body: JSON.stringify(appData)
+                });
+            } catch (e) { /* error lang, wag intindihin */ }
+        }
+
+
+        // ✅ ORIHINAL NA LOGIC MO, INAYOS LANG ANG PAGBASA NG LINK
         function updateViews() {
             appData.views += 1;
+            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
             saveData();
         }
 
@@ -352,6 +350,7 @@
                 document.getElementById(`bar${i}`).style.width = `${percent}%`;
             }
 
+            // Compute Average
             let sumPoints = 0;
             for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
             const average = total > 0 ? (sumPoints / total) : 0;
@@ -397,8 +396,12 @@
             });
         }
 
+
+        // ✅ ITO ANG TAMA: BINABASA ANG LINK GALING SA APP MO
         function checkForNewFeedback() {
             const urlParams = new URLSearchParams(window.location.search);
+            
+            // KUNG MAY DADALING DATA GALING SA APP
             if(urlParams.has('rating') && urlParams.has('name')) {
                 const newFeedback = {
                     name: urlParams.get('name'),
@@ -407,19 +410,17 @@
                     date: new Date().toISOString()
                 };
 
+                // ✅ IDADAGDAG SA BILANG
                 appData.ratings[newFeedback.rating - 1] += 1;
                 appData.feedbacks.unshift(newFeedback); 
                 
                 if(appData.feedbacks.length > 20) appData.feedbacks.pop();
 
+                // ✅ DITO LANG TANGGALIN ANG LINK PAGKABASA NA!
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                saveData(); // I-save sa internet
+                saveData(); // I-save agad sa server
             }
-        }
-
-        function saveData() {
-            dataRef.set(appData); // I-save lahat sa online database
         }
 
         function escapeHtml(unsafe) {
@@ -437,9 +438,11 @@
             renderComments();
         }
 
-        window.onload = () => {
-            checkForNewFeedback();
-            updateViews(); // Dagdagan agad ang bilang ng bisita
+        window.onload = async () => {
+            await getData(); // Kunin muna ang data mula sa server
+            checkForNewFeedback(); // Basahin ang link (kung may galing sa app)
+            updateViews(); // Dagdagan ang bisita
+            updateUI(); // Ipakita lahat
         };
     </script>
 

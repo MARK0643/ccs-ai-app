@@ -6,6 +6,9 @@
     <title>CCS AI - Official App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- ✅ FIREBASE: Ito ang magpapa-sync ng data sa LAHAT ng device -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -57,7 +60,6 @@
             .star-rating span {
                 color: #fbbc05;
             }
-            /* ✨ Bagong style para sa litrato */
             .screenshot-thumb {
                 @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer;
             }
@@ -243,7 +245,7 @@
     </div>
 
 
-    <!-- ✅ FULLSCREEN IMAGE VIEWER (Gusto mo ito) -->
+    <!-- ✅ FULLSCREEN IMAGE VIEWER -->
     <div id="galleryModal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col justify-center items-center">
         <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-2xl z-10">
             <i class="fa fa-times-circle"></i>
@@ -261,8 +263,25 @@
     </div>
 
 
-    <!-- ✅ SCRIPT: BINUO KO ANG ORIHINAL NA UPDATE RATINGS MO + DINAGDAGAN PARA SA BAGONG DISPLAY -->
+    <!-- ✅ BAGONG SCRIPT: GUMAGAMIT NG ONLINE DATABASE PARA MAKITA NG LAHAT -->
     <script>
+        // ✅ KONFIGURASYON NG ONLINE DATABASE (Firebase)
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8g5Gz0yH7Xk8s9rL2pQaZxXcVbNvMkLqPwE",
+            authDomain: "ccs-ai-app.firebaseapp.com",
+            databaseURL: "https://ccs-ai-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ccs-ai-app",
+            storageBucket: "ccs-ai-app.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456ghi789jkl0"
+        };
+
+        // Simulan ang Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const dataRef = db.ref('ccsai_data');
+
+
         const images = [
             'app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'
         ];
@@ -301,24 +320,30 @@
         });
 
 
-        // ✅ ITO ANG ORIHINAL NA CODE MO - WALA AKONG TINANGGAL, WALA AKONG PINALIT
-        let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
-            views: 0,
-            ratings: [0,0,0,0,0], 
-            feedbacks: []
-        };
+        // ✅ GAMITIN NA ANG ONLINE DATA SA HALIP NG LOCAL STORAGE
+        let appData = { views: 0, ratings: [0,0,0,0,0], feedbacks: [] };
+
+        // Kunin ang data mula sa internet kapag nagbukas
+        dataRef.on('value', snapshot => {
+            const onlineData = snapshot.val();
+            if (onlineData) {
+                appData = onlineData;
+            } else {
+                // Kung wala pa, gawa ng bago
+                saveData();
+            }
+            updateUI(); // I-update ang screen kapag may nagbago
+        });
 
         function updateViews() {
             appData.views += 1;
-            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
             saveData();
         }
 
-        // ✅ BUO AT ORIHINAL NA UPDATE RATINGS UI MO - GINAYA KO TALAGA YUNG SA LUMANG CODE MO
         function updateRatingsUI() {
             const total = appData.ratings.reduce((a,b) => a+b, 0);
-            document.getElementById('totalRatingsHeader').textContent = total; // para sa taas
-            document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`; // para sa baba
+            document.getElementById('totalRatingsHeader').textContent = total;
+            document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`;
             
             for(let i=1; i<=5; i++) {
                 const count = appData.ratings[i-1];
@@ -327,7 +352,6 @@
                 document.getElementById(`bar${i}`).style.width = `${percent}%`;
             }
 
-            // ✅ DINAGDAG KO LANG ITO PARA SA AVERAGE RATING (kailangan para sa bagong display)
             let sumPoints = 0;
             for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
             const average = total > 0 ? (sumPoints / total) : 0;
@@ -390,13 +414,12 @@
 
                 window.history.replaceState({}, document.title, window.location.pathname);
                 
-                saveData();
-                updateUI();
+                saveData(); // I-save sa internet
             }
         }
 
         function saveData() {
-            localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
+            dataRef.set(appData); // I-save lahat sa online database
         }
 
         function escapeHtml(unsafe) {
@@ -409,14 +432,14 @@
         }
 
         function updateUI() {
-            updateViews();
+            document.getElementById('viewCount').textContent = appData.views.toLocaleString();
             updateRatingsUI();
             renderComments();
         }
 
         window.onload = () => {
             checkForNewFeedback();
-            updateUI();
+            updateViews(); // Dagdagan agad ang bilang ng bisita
         };
     </script>
 

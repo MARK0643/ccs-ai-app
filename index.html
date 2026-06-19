@@ -261,7 +261,7 @@
     </div>
 
 
-    <!-- ✅ DITO ANG ORIHINAL NA SCRIPT MO - HINDI KO BINAGO KAHIT ISANG LINYA -->
+    <!-- ✅ SCRIPT: BINUO KO ANG ORIHINAL NA UPDATE RATINGS MO + DINAGDAGAN PARA SA BAGONG DISPLAY -->
     <script>
         const images = [
             'app1.png', 'app2.png', 'app3.png', 'app4.png', 'app5.png', 'app6.png'
@@ -301,7 +301,7 @@
         });
 
 
-        // ✅ ITO ANG ORIHINAL NA CODE MO - WALA AKONG BINAGO DITO
+        // ✅ ITO ANG ORIHINAL NA CODE MO - WALA AKONG TINANGGAL, WALA AKONG PINALIT
         let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
             views: 0,
             ratings: [0,0,0,0,0], 
@@ -314,20 +314,28 @@
             saveData();
         }
 
+        // ✅ BUO AT ORIHINAL NA UPDATE RATINGS UI MO - GINAYA KO TALAGA YUNG SA LUMANG CODE MO
         function updateRatingsUI() {
             const total = appData.ratings.reduce((a,b) => a+b, 0);
+            document.getElementById('totalRatingsHeader').textContent = total; // para sa taas
+            document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`; // para sa baba
+            
+            for(let i=1; i<=5; i++) {
+                const count = appData.ratings[i-1];
+                const percent = total > 0 ? (count / total) * 100 : 0;
+                document.getElementById(`count${i}`).textContent = count;
+                document.getElementById(`bar${i}`).style.width = `${percent}%`;
+            }
+
+            // ✅ DINAGDAG KO LANG ITO PARA SA AVERAGE RATING (kailangan para sa bagong display)
             let sumPoints = 0;
             for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
             const average = total > 0 ? (sumPoints / total) : 0;
             const avgFixed = average.toFixed(1);
-
-            // ✅ Ito ang dinagdag ko para lumabas ang average sa taas at sa malaking numero
-            document.getElementById('totalRatingsHeader').textContent = total;
-            document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+            
             document.getElementById('averageRatingText').textContent = `${avgFixed} ★`;
             document.getElementById('averageRatingBig').textContent = avgFixed;
             
-            // ✅ Ito para sa mga bituin
             const starsContainer = document.getElementById('starsDisplay');
             starsContainer.innerHTML = '';
             const fullStars = Math.floor(average);
@@ -337,15 +345,6 @@
             for(let i=0; i<fullStars; i++) starsContainer.innerHTML += '<i class="fa fa-star"></i>';
             if(halfStar) starsContainer.innerHTML += '<i class="fa fa-star-half-o"></i>';
             for(let i=0; i<emptyStars; i++) starsContainer.innerHTML += '<i class="fa fa-star-o"></i>';
-
-
-            // ✅ ITO ANG ORIHINAL NA BILANG NG BARS MO - HINDI BINAGO
-            for(let i=1; i<=5; i++) {
-                const count = appData.ratings[i-1];
-                const percent = total > 0 ? (count / total) * 100 : 0;
-                document.getElementById(`count${i}`).textContent = count;
-                document.getElementById(`bar${i}`).style.width = `${percent}%`;
-            }
         }
 
         function renderComments() {

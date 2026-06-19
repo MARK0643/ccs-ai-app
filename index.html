@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCS AI - Official App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        dark: '#1D2129',
+                        light: '#F2F3F5',
+                        playBlue: '#1a73e8',
+                        playGreen: '#34a853',
+                        playGray: '#f8f9fa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .bg-gradient-app {
+                background: linear-gradient(135deg, #165DFF 0%, #36CFC9 100%);
+            }
+            .shadow-app {
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+            .animate-scroll {
+                animation: scroll 20s linear infinite;
+            }
+            .animate-scroll:hover {
+                animation-play-state: paused;
+            }
+            @keyframes scroll {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-100%); }
+            }
+            .star-rating span {
+                color: #fbbc05;
+            }
+            .screenshot-thumb {
+                @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer;
+            }
+            .modal-img {
+                @apply w-full h-auto max-h-[85vh] object-contain;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-dark min-h-screen">
+
+    <div class="max-w-md mx-auto bg-white min-h-screen relative">
+
+        <!-- Header: Logo + App Info -->
+        <header class="px-5 pt-8 pb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-app">
+                    <img src="logo.png" alt="CCS AI Logo" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
+                    <h1 class="text-xl font-bold text-gray-900">CCS Ai</h1>
+                    <p class="text-sm text-blue-600 mt-1">Official Ai Assistant & Announcement</p>
+                    <div class="flex items-center gap-3 mt-2 text-sm text-gray-700">
+                        <!-- ✅ DITO NA KUKUHA ANG RATING: DYNAMIC NA -->
+                        <span id="averageRatingText">0.0 ★</span>
+                        <span>•</span>
+                        <span id="totalRatingsHeader">0</span>
+                        <span>•</span>
+                        <span>17 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Install Button -->
+            <a href="./CCS-AI-App.apk" download="CCS-AI-App.apk" 
+               class="block w-full bg-playBlue hover:bg-playBlue/90 text-white font-semibold py-3 rounded-lg text-center transition-all mt-5">
+                Install
+            </a>
+        </header>
+
+
+        <!-- Screenshots: Small horizontal scrollable -->
+        <section class="px-5 py-3">
+            <div class="flex gap-3 overflow-x-auto scrollbar-hide py-2">
+                <img src="app1.png" alt="Screenshot 1" class="screenshot-thumb" onclick="openGallery(0)">
+                <img src="app2.png" alt="Screenshot 2" class="screenshot-thumb" onclick="openGallery(1)">
+                <img src="app3.png" alt="Screenshot 3" class="screenshot-thumb" onclick="openGallery(2)">
+                <img src="app4.png" alt="Screenshot 4" class="screenshot-thumb" onclick="openGallery(3)">
+                <img src="app5.png" alt="Screenshot 5" class="screenshot-thumb" onclick="openGallery(4)">
+                <img src="app6.png" alt="Screenshot 6" class="screenshot-thumb" onclick="openGallery(5)">
+            </div>
+        </section>
+
+
+        <!-- About this app -->
+        <section class="px-5 py-4 border-t border-gray-200">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-lg font-semibold text-gray-900">About this app</h2>
+                <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed">
+                This is the official application for students of the College of Computing Studies. 
+                Get the latest announcements, information, and assistance for your studies right here.
+            </p>
+            <div class="mt-3 p-3 bg-playGray rounded-lg">
+                <p class="text-xs text-gray-600">
+                    <i class="fa fa-info-circle mr-1"></i>
+                    Please download only the official version to ensure security and proper functionality.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- Ratings & Reviews -->
+        <section class="px-5 py-4 border-t border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Ratings & reviews</h2>
+
+            <div class="flex items-center gap-4 mb-5">
+                <div class="text-center">
+                    <!-- ✅ DITO RIN DYNAMIC ANG RATING -->
+                    <p class="text-3xl font-bold" id="averageRatingBig">0.0</p>
+                    <div class="flex text-yellow-400 text-sm justify-center" id="starsDisplay">
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1" id="totalReviewsText">0 reviews</p>
+                </div>
+
+                <div class="flex-1 space-y-1 text-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 text-xs">5 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar5" class="h-full bg-playGreen w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count5" class="w-6 text-right text-xs">0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 text-xs">4 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar4" class="h-full bg-playGreen w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count4" class="w-6 text-right text-xs">0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 text-xs">3 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar3" class="h-full bg-yellow-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count3" class="w-6 text-right text-xs">0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 text-xs">2 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar2" class="h-full bg-orange-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count2" class="w-6 text-right text-xs">0</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 text-xs">1 ★</span>
+                        <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div id="bar1" class="h-full bg-red-400 w-0 transition-all duration-1000"></div>
+                        </div>
+                        <span id="count1" class="w-6 text-right text-xs">0</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Student Feedback -->
+            <div class="bg-playGray rounded-xl p-4">
+                <h3 class="text-md font-semibold mb-3 flex items-center gap-2">
+                    <i class="fa fa-comments text-playBlue"></i>
+                    What Students Say
+                </h3>
+                <div class="relative h-[120px] overflow-hidden rounded-lg bg-white">
+                    <div id="commentsContainer" class="absolute w-full animate-scroll">
+                        <div class="p-3 text-center text-gray-400 text-sm">Waiting for feedback...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Developer Info -->
+        <section class="px-5 py-4 border-t border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Developer</h3>
+            <a href="https://www.facebook.com/share/1HEn4ocMjm/" target="_blank" rel="noopener noreferrer"
+               class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                <div class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white">
+                    <i class="fa fa-facebook"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="font-semibold text-sm">Marky</p>
+                    <p class="text-xs text-gray-500">CCS Student</p>
+                </div>
+                <i class="fa fa-external-link text-gray-400"></i>
+            </a>
+        </section>
+
+
+        <!-- Install Guide -->
+        <section class="px-5 py-4 border-t border-gray-200">
+            <div class="p-4 bg-green-50 border border-green-100 rounded-lg">
+                <h4 class="text-sm font-bold text-green-700 mb-1">🎉 How to Install</h4>
+                <p class="text-xs text-green-600">
+                    After the download is complete, open the file and allow "Install from Unknown Sources" in your settings if prompted. 
+                    Enjoy using CCS AI!
+                </p>
+            </div>
+        </section>
+
+
+        <footer class="px-5 py-6 text-center text-xs text-gray-500 border-t border-gray-200">
+            © 2026 College of Computing Studies. All rights reserved.<br>
+            Made for students, dedicated to better service.
+        </footer>
+
+    </div>
+
+
+    <!-- Fullscreen Image Gallery Modal -->
+    <div id="galleryModal" class="fixed inset-0 bg-black/95 z-[999] hidden flex-col justify-center items-center">
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-2xl z-10">
+            <i class="fa fa-times-circle"></i>
+        </button>
+        <div class="relative w-full h-full flex items-center justify-center overflow-hidden touch-pan-x">
+            <button onclick="prevImg()" class="absolute left-4 text-white text-3xl opacity-70 hover:opacity-100">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <img id="fullImg" src="" alt="Full view" class="modal-img transition-all duration-300">
+            <button onclick="nextImg()" class="absolute right-4 text-white text-3xl opacity-70 hover:opacity-100">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+        <p id="imgCounter" class="text-white text-sm mt-3">1 / 6</p>
+    </div>
+
+
+    <!-- Original Functions -->
+    <script>
+        const images = [
+            'app1.png',
+            'app2.png',
+            'app3.png',
+            'app4.png',
+            'app5.png',
+            'app6.png'
+        ];
+        let currentIndex = 0;
+
+        function openGallery(index) {
+            currentIndex = index;
+            document.getElementById('fullImg').src = images[currentIndex];
+            document.getElementById('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
+            document.getElementById('galleryModal').classList.remove('hidden');
+            document.getElementById('galleryModal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').classList.add('hidden');
+            document.getElementById('galleryModal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function prevImg() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById('fullImg').src = images[currentIndex];
+            document.getElementById('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        function nextImg() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('fullImg').src = images[currentIndex];
+            document.getElementById('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        // Swipe support
+        let touchStartX = 0;
+        const modalImg = document.getElementById('galleryModal');
+        modalImg.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        modalImg.addEventListener('touchend', e => {
+            const diffX = e.changedTouches[0].screenX - touchStartX;
+            if (diffX < -50) nextImg();
+            if (diffX > 50) prevImg();
+        });
+
+
+        // ✅ ORIGINAL DATA FUNCTIONS - WALA AKONG BINAGO DITO, DINAGDAGAN LANG
+        let appData = JSON.parse(localStorage.getItem('ccsAI_Data')) || {
+            views: 0,
+            ratings: [0,0,0,0,0], 
+            feedbacks: []
+        };
+
+        function updateViews() {
+            appData.views += 1;
+            if(document.getElementById('viewCount')) document.getElementById('viewCount').textContent = appData.views.toLocaleString();
+            saveData();
+        }
+
+        function updateRatingsUI() {
+            const total = appData.ratings.reduce((a,b) => a+b, 0);
+            let sumPoints = 0;
+
+            // Compute total points: (1*count1)+(2*count2)...+(5*count5)
+            for(let i=0; i<5; i++) sumPoints += (i+1) * appData.ratings[i];
+
+            // Compute Average Rating
+            const average = total > 0 ? (sumPoints / total) : 0;
+            const avgFixed = average.toFixed(1);
+
+            // Update all displays
+            document.getElementById('totalRatingsHeader').textContent = total.toLocaleString();
+            document.getElementById('totalReviewsText').textContent = `${total} review${total !== 1 ? 's' : ''}`;
+            document.getElementById('averageRatingText').textContent = `${avgFixed} ★`;
+            document.getElementById('averageRatingBig').textContent = avgFixed;
+            
+            // Update Star Icons
+            const starsContainer = document.getElementById('starsDisplay');
+            starsContainer.innerHTML = '';
+            const fullStars = Math.floor(average);
+            const halfStar = (average % 1) >= 0.25 && (average % 1) < 0.75;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            
+            for(let i=0; i<fullStars; i++) starsContainer.innerHTML += '<i class="fa fa-star"></i>';
+            if(halfStar) starsContainer.innerHTML += '<i class="fa fa-star-half-o"></i>';
+            for(let i=0; i<emptyStars; i++) starsContainer.innerHTML += '<i class="fa fa-star-o"></i>';
+
+            // Update Bars and Counts
+            for(let i=1; i<=5; i++) {
+                const count = appData.ratings[i-1];
+                const percent = total > 0 ? (count / total) * 100 : 0;
+                document.getElementById(`count${i}`).textContent = count;
+                document.getElementById(`bar${i}`).style.width = `${percent}%`;
+            }
+        }
+
+        function renderComments() {
+            const container = document.getElementById('commentsContainer');
+            container.innerHTML = '';
+
+            if(appData.feedbacks.length === 0) {
+                container.innerHTML = `<div class="p-4 text-center text-gray-400 text-sm">Be the first to share your experience! ✨</div>`;
+                return;
+            }
+
+            const allComments = [...appData.feedbacks, ...appData.feedbacks];
+
+            allComments.forEach(fb => {
+                const stars = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
+                const commentEl = document.createElement('div');
+                commentEl.className = 'p-3 mb-2 border-b border-gray-100 last:border-0';
+                commentEl.innerHTML = `
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-semibold text-sm text-primary">${escapeHtml(fb.name)}</span>
+                        <span class="star-rating text-xs">${stars}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">${escapeHtml(fb.comment || "Great app! Very helpful.")}</p>
+                `;
+                container.appendChild(commentEl);
+            });
+        }
+
+        function checkForNewFeedback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('rating') && urlParams.has('name')) {
+                const newFeedback = {
+                    name: urlParams.get('name'),
+                    rating: parseInt(urlParams.get('rating')),
+                    comment: urlParams.get('comment') || "",
+                    date: new Date().toISOString()
+                };
+
+                appData.ratings[newFeedback.rating - 1] += 1;
+                appData.feedbacks.unshift(newFeedback); 
+                
+                if(appData.feedbacks.length > 20) appData.feedbacks.pop();
+                
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                saveData();
+                updateUI();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('ccsAI_Data', JSON.stringify(appData));
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe.toString()
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        function updateUI() {
+            updateViews();
+            updateRatingsUI(); // Ito ang nagkukuwenta ng lahat ng rating
+            renderComments();
+        }
+
+        window.onload = () => {
+            checkForNewFeedback();
+            updateUI();
+        };
+    </script>
+
+    <!-- Popup Modal -->
+    <div id="noApkModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
+            <h2 class="text-lg font-bold text-dark mb-2">File Not Found</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                It's a frank wayruun pa hahaha relax kaw ba subay na ka approv'an he download mo man hehe.
+            </p>
+            <button onclick="closeModal()" 
+                    class="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90">
+                Understand
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const downloadBtn = document.querySelector('a[href="./CCS-AI-App.apk"]');
+
+        downloadBtn.addEventListener('click', function(e) {
+            fetch('./CCS-AI-App.apk', { method: 'HEAD' })
+                .then(res => {
+                    if (!res.ok) {
+                        e.preventDefault();
+                        showModal();
+                    }
+                })
+                .catch(() => {
+                    e.preventDefault();
+                    showModal();
+                });
+        });
+
+        function showModal() {
+            document.getElementById('noApkModal').classList.remove('hidden');
+            document.getElementById('noApkModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('noApkModal').classList.add('hidden');
+            document.getElementById('noApkModal').classList.remove('flex');
+        }
+    </script>
+
+</body>
+</html>

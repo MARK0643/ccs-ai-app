@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CCS AI</title>
+    <!-- ✅ FAVICON -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        dark: '#1D2129',
+                        light: '#F2F3F5',
+                        playBlue: '#1a73e8',
+                        playGreen: '#34a853',
+                        playGray: '#f8f9fa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto { content-visibility: auto; }
+            .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+            .neon-border { border: 1px solid rgba(22, 93, 255, 0.2); box-shadow: 0 0 10px rgba(22, 93, 255, 0.1); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark min-h-screen">
+
+    <div class="max-w-md mx-auto relative">
+
+        <!-- ✅ HEADER: MAY LOGO SA TABING BACK BUTTON -->
+        <header class="safe-area-top border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+            <div class="px-4 py-4 flex items-center gap-3">
+                <button onclick="window.history.back()" class="text-primary hover:bg-primary/10 p-2 rounded-full transition">
+                    <i class="fa fa-chevron-left text-lg"></i>
+                </button>
+
+                <img src="logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <div>
+                    <h1 class="text-lg font-bold text-primary">About</h1>
+                    <p class="text-xs text-gray-500">Guide & Features</p>
+                </div>
+            </div>
+        </header>
+
+
+        <main class="px-4 py-6 max-w-2xl mx-auto">
+            <div class="space-y-5">
+
+                <!-- Registration -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-sign-in text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">Logging In with your Student ID</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        Access to CCS AI is restricted to officially registered CCS students. From the
+                        Welcome screen, tap <strong>Enter as Student</strong>, then enter your <strong>Student ID Number</strong>.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        ✅ <strong>If Registered:</strong> If your ID is found in the database, you'll enter the Student Hub. 
+                        Your full name, major, year level, and department are loaded automatically — no need to fill up forms.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        ❌ <strong>NOT Registered / ID not found?</strong> You cannot enter directly. You will be redirected to the 
+                        <strong> Registration Request Form</strong>. Fill it out and submit.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        📬 <strong>Check Status in Inbox:</strong> After submitting your request, go to your <strong>Inbox</strong>. 
+                        You will see the status of your application here: <strong>PENDING</strong> (waiting for review), 
+                        <strong> APPROVED</strong> (you can now log in), or <strong>REJECTED</strong> (form details did not match records).
+                        You will also receive a notification once a decision is made.
+                    </p>
+                    <p class="text-xs text-gray-500 italic">
+                        Note: Accounts are managed by the CCS office only.
+                    </p>
+                </div>
+
+
+                <!-- Viewing Announcements -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-bell text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">Viewing Announcements</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        Announcements from the CCS department appear on your dashboard as cards. 
+                        Latest posts are always on top. Pull down to refresh and check for new updates.
+                    </p>
+                    <p class="text-gray-600 text-sm">
+                        <strong>Tap any announcement</strong> to see full details, images, and links. 
+                        You will receive push notifications for new announcements even when the app is closed.
+                    </p>
+                </div>
+
+
+                <!-- Pin & Remind Me -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-thumb-tack text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">Pin Post & Remind Me</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <strong>📌 Pin Post:</strong> Tap to pin important announcements. They will stay at the very top 
+                        of your feed and highlighted so you won't miss them. Tap again to unpin.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <strong>⏰ Remind Me:</strong> Set a specific date and time for any post. 
+                        When the time comes, your phone will notify you.
+                    </p>
+                    <p class="text-gray-600 text-sm">
+                        <strong>🔔 Continuous Notification:</strong> Reminders will ring LOUD and CONTINUOUSLY 
+                        until you open the app or tap the "Stop" button on the notification. This works even if the app is closed or phone is locked.
+                    </p>
+                </div>
+
+
+                <!-- AI Assistant -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-comments text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">AI Assistant</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        The AI Assistant helps answer questions about CCS personnel, faculty, offices, 
+                        and department information. Look for the floating button at the bottom-right 
+                        of your screen to open the chat.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        You can type your questions or tap the microphone for voice input. 
+                        Speak clearly — the message sends automatically after you pause, and the assistant replies with voice and text.
+                    </p>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <span class="font-bold text-primary">🤫 SECRET FEATURE:</span> 
+                        You can change the Chat Theme! Available styles: 
+                        <em> Soft Blue Bubbles, Pink Purple Dreams, Dark Smoke, Green Abstract, Minimalist Floral,</em> 
+                        and <em>White Jasmine</em>. 
+                        <br><strong>Only Mark knows about this — keep it secret!</strong>
+                    </p>
+                    <p class="text-xs text-gray-500 italic">
+                        Try asking: "Who is the dean of CCS" or "Who is Mark?"
+                    </p>
+                </div>
+
+
+                <!-- Viewing Images -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-picture-o text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">Viewing Images</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        Tap any image in an announcement to view it in fullscreen. 
+                        You can zoom in/out, and swipe left or right to see multiple images.
+                    </p>
+                    <p class="text-gray-600 text-sm">
+                        *Download feature is currently not available.
+                    </p>
+                </div>
+
+
+                <!-- Settings & Profile -->
+                <div class="glass rounded-xl p-5 shadow-sm">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i class="fa fa-cog text-primary text-xl"></i>
+                        <h3 class="text-lg font-bold text-gray-800">Settings & Profile</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        Access your Profile tab to customize your experience:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 mb-2">
+                        <li><strong>Random Avatar:</strong> If you haven't uploaded a photo, a unique avatar is automatically generated based on your ID. 
+                        It changes design randomly every time you open or refresh the app.</li>
+                        <li><strong>Upload Photo:</strong> Tap your avatar to set your own profile picture.</li>
+                        <li><strong>Profile Info:</strong> Name, ID, Major, Year, Dept, and College are read-only — sourced directly from CCS records.</li>
+                        <li><strong>Dark Mode:</strong> Toggle between Off (light), On (dark), or System (automatic)</li>
+                        <li><strong>Accent Color:</strong> Choose your preferred app theme color</li>
+                    </ul>
+                    <p class="text-gray-600 text-sm">
+                        Use the <strong>Logout</strong> button at the bottom of your Profile page to sign out.
+                    </p>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>

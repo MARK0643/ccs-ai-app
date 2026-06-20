@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCS AI - Official App</title>
+    <!-- ✅ FAVICON -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -37,6 +39,9 @@
             .animate-scroll { animation: scroll 20s linear infinite; }
             .animate-scroll:hover { animation-play-state: paused; }
             @keyframes scroll { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
+            /* ✅ ANIMATION PARA SA CHEVRON (PAPANSIN) */
+            .animate-bounce-side { animation: bounceSide 0.8s infinite alternate; }
+            @keyframes bounceSide { 0% { transform: translateX(0); } 100% { transform: translateX(3px); } }
             .star-rating span { color: #fbbc05; }
             .screenshot-thumb { @apply w-[130px] h-[240px] rounded-lg object-cover shadow-sm cursor-pointer; }
             .modal-img { @apply w-full h-auto max-h-[85vh] object-contain; }
@@ -86,12 +91,12 @@
         </section>
 
 
-        <!-- About App -->
+        <!-- ✅ ABOUT THIS APP - GINAWANG LINK MAY ANIMATION -->
         <section class="px-5 py-4 border-t border-gray-200">
-            <div class="flex items-center justify-between mb-2">
+            <a href="about.html" class="flex items-center justify-between mb-2 group">
                 <h2 class="text-lg font-semibold text-gray-900">About this app</h2>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
+                <i class="fa fa-chevron-right text-gray-400 animate-bounce-side group-hover:animate-none"></i>
+            </a>
             <p class="text-sm text-gray-600 leading-relaxed">
                 This is the official application for students of the College of Computing Studies. 
                 Get the latest announcements, information, and assistance for your studies right here.
@@ -173,19 +178,19 @@
         </section>
 
 
-        <!-- Developer -->
-        <section class="px-5 py-4 border-t border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Developer</h3>
+        <!-- ✅ DEVELOPER - GINAWA CENTER -->
+        <section class="px-5 py-4 border-t border-gray-200 text-center">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Meet the Developer</h3>
             <a href="https://www.facebook.com/share/1HEn4ocMjm/" target="_blank" rel="noopener noreferrer"
-               class="flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+               class="inline-flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition w-full justify-center">
                 <div class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white">
                     <i class="fa fa-facebook"></i>
                 </div>
-                <div class="flex-1">
+                <div class="text-left">
                     <p class="font-semibold text-sm">Marky</p>
                     <p class="text-xs text-gray-500">CCS Student</p>
                 </div>
-                <i class="fa fa-external-link text-gray-400"></i>
+                <i class="fa fa-external-link text-gray-400 ml-1"></i>
             </a>
         </section>
 
@@ -441,7 +446,7 @@
         <div class="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
             <h2 class="text-lg font-bold text-dark mb-2">File Not Found</h2>
             <p class="text-sm text-gray-600 mb-4">
-                It's a prank wayruun pa hahaha relax kaw ba subay na ka approv'an he download mo man hehe.
+                It's a prank wayruun pa hahaha relax kaw ba subay na ka approv'an he download mo man.
             </p>
             <button onclick="closeModal()" 
                     class="bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90">
